@@ -1,0 +1,62 @@
+name: NetSpeedIsland
+options:
+  bundleIdPrefix: com.personal
+  deploymentTarget:
+    iOS: "16.2"
+  xcodeVersion: "15.0"
+  createIntermediateGroups: true
+
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+    MARKETING_VERSION: "1.0.0"
+    CURRENT_PROJECT_VERSION: "1"
+    TARGETED_DEVICE_FAMILY: "1"
+    ENABLE_USER_SCRIPT_SANDBOXING: "NO"
+
+targets:
+  NetSpeedIsland:
+    type: application
+    platform: iOS
+    sources:
+      - path: NetSpeedIsland
+      - path: Shared
+    info:
+      path: NetSpeedIsland/Info.plist
+      properties:
+        CFBundleDisplayName: 灵动网速
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        NSSupportsLiveActivities: true
+        NSSupportsLiveActivitiesFrequentUpdates: true
+        UIBackgroundModes:
+          - audio
+        UILaunchScreen: {}
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.personal.netspeedisland
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+    dependencies:
+      - target: NetSpeedWidgetExtension
+        embed: true
+
+  NetSpeedWidgetExtension:
+    type: app-extension
+    platform: iOS
+    sources:
+      - path: NetSpeedWidgetExtension
+      - path: Shared
+    info:
+      path: NetSpeedWidgetExtension/Info.plist
+      properties:
+        CFBundleDisplayName: 灵动网速组件
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.widgetkit-extension
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.personal.netspeedisland.widget
+        SKIP_INSTALL: YES
